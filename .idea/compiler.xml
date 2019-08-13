@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="springboot-anntion-consumer" />
+        <module name="thread" />
+        <module name="springboot-work-provider" />
+        <module name="springboot-work-consumer" />
+        <module name="springboot-provider" />
+        <module name="springboot-anntion-provider" />
+        <module name="springboot-consumer" />
+        <module name="springboot-poi" />
+        <module name="ssh-lih" />
+        <module name="dubbo-api" />
+        <module name="spingboot-demo" />
+        <module name="springboot-highcharts" />
+        <module name="springboot-work-api" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="8" />
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_STRING" value="-encoding utf-8" />
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="dubbo-api" options="" />
+      <module name="spingboot-demo" options="-parameters" />
+      <module name="springboot-anntion-consumer" options="-parameters" />
+      <module name="springboot-anntion-provider" options="-parameters" />
+      <module name="springboot-consumer" options="-parameters" />
+      <module name="springboot-highcharts" options="-parameters" />
+      <module name="springboot-poi" options="-parameters" />
+      <module name="springboot-provider" options="" />
+      <module name="springboot-work-api" options="" />
+      <module name="springboot-work-consumer" options="-parameters" />
+      <module name="springboot-work-provider" options="-parameters" />
+      <module name="ssh-lih" options="" />
+      <module name="thread" options="-parameters" />
+    </option>
+  </component>
+</project>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.UserListMapper" >
+
+
+
+
+
+  <insert id="addUser" >
+    insert  into  t_users  (username,password,img) values
+    <foreach collection="list" item="l" separator=",">
+      (#{l.username},#{l.password},#{l.img})
+    </foreach>
+  </insert>
+
+
+
+</mapper>

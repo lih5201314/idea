@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script src="../highcharts/code/highcharts.js"></script>
+    <script src="../js/jquery.min.js"></script>
+
+</head>
+<body>
+<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+<div id="container1" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+<div id="container2" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+<div id="container3" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+</body>
+<SCRIPT>
+
+    $(function(){
+        qipao();
+        zhu();
+        querybing();
+        zhe();
+    })
+
+        function qipao(){
+
+
+        $.ajax({
+            url:"../car/querycar",
+            type:"post",
+            dataType:"json",
+            success:function (data) {
+
+                var chart = Highcharts.chart('container', {
+                    chart: {
+                        type: 'scatter',
+                        zoomType: 'xy'
+                    },
+                    title: {
+                        text: '1902B 汽车'
+                    },
+                    subtitle: {
+                        text: '数据来源: Heinz  2003'
+                    },
+                    xAxis: {
+                        title: {
+                            enabled: true,
+                            text: '个数'
+                        },
+                        startOnTick: false,
+                        endOnTick: false,
+                        showLastLabel: false
+                    },
+                    yAxis: {
+                        title: {
+                            text: '日期'
+                        }
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        align: 'left',
+                        verticalAlign: 'top',
+                        x: 100,
+                        y: 70,
+                        floating: true,
+                        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+                        borderWidth: 1
+                    },
+                    plotOptions: {
+                        scatter: {
+                            marker: {
+                                radius: 5,
+                                states: {
+                                    hover: {
+                                        enabled: true,
+                                        lineColor: 'rgb(100,100,100)'
+                                    }
+                                }
+                            },
+                            states: {
+                                hover: {
+                                    marker: {
+                                        enabled: false
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                headerFormat: '<b>{series.name}</b><br>',
+                                pointFormat: '{point.y} 日, {point.x} 颜色'
+                            }
+                        }
+                    },
+                    series:data /* [{
+                        name: data,
+                        color: 'rgba(223, 83, 83, .5)',
+                        data: data
+                    }]*/
+                });
+
+            },error:function () {
+                alert("查询失败")
+            }
+        })
+
+
+    }
+   function zhu() {
+
+       $.ajax({
+           url: "../car/queryZhuxing",
+           type: "post",
+           dataType: "json",
+           success: function (data) {
+               var chart = Highcharts.chart('container1', {
+                   chart: {
+                       type: 'bar'
+                   },
+                   title: {
+                       text: '1902b 汽车'
+                   },
+                   subtitle: {
+                       text: '数据来源: Wikipedia.org'
+                   },
+                   xAxis: {
+                       categories: ['白色', '黑色', '蓝色', '红色'],
+                       title: {
+                           text: null
+                       }
+                   },
+                   yAxis: {
+                       min: 0,
+                       title: {
+                           text: '汽车数量',
+                           align: 'high'
+                       },
+                       labels: {
+                           overflow: 'justify'
+                       }
+                   },
+                   tooltip: {
+                       valueSuffix: ' 百万'
+                   },
+                   plotOptions: {
+                       bar: {
+                           dataLabels: {
+                               enabled: true,
+                               allowOverlap: true // 允许数据标签重叠
+                           }
+                       }
+                   },
+                   legend: {
+                       layout: 'vertical',
+                       align: 'right',
+                       verticalAlign: 'top',
+                       x: -40,
+                       y: 100,
+                       floating: true,
+                       borderWidth: 1,
+                       backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                       shadow: true
+                   },
+                   series: data,
+
+
+               });
+           }, error: function () {
+               alert("查询失败")
+           }
+       })
+   }
+
+   function querybing() {
+
+       $.ajax({
+           url: "../car/querybing",
+           type: "post",
+           dataType: "json",
+           success: function (data) {
+               Highcharts.chart('container2', {
+                   chart: {
+                       plotBackgroundColor: null,
+                       plotBorderWidth: null,
+                       plotShadow: false,
+                       type: 'pie'
+                   },
+                   title: {
+                       text: '汽车统计'
+                   },
+                   tooltip: {
+                       pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                   },
+                   plotOptions: {
+                       pie: {
+                           allowPointSelect: true,
+                           cursor: 'pointer',
+                           dataLabels: {
+                               enabled: true,
+                               format: '<b>{point.name}</b>: {point.y} ',
+                               style: {
+                                   color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                               }
+                           }
+                       }
+                   },
+                   series: [{
+                       name: '汽车占比',
+                       colorByPoint: true,
+                       data: data
+                   }]
+               });
+
+           }, error: function () {
+               alert("查询失败")
+           }
+       })
+   }
+
+
+
+ function zhe() {
+
+     $.ajax({
+         url: "../car/queryzhe",
+         type: "post",
+         dataType: "json",
+         success: function (data) {
+             Highcharts.chart('container3', {
+                 title: {
+                     text: '时间占比'
+                 },
+                 yAxis: {
+                     title: {
+                         text: '时间数量'
+                     }
+                 },
+                 legend: {
+                     layout: 'vertical',
+                     align: 'right',
+                     verticalAlign: 'middle'
+                 },
+                 responsive: {
+                     rules: [{
+                         condition: {
+                             maxWidth: 500
+                         },
+                         chartOptions: {
+                             legend: {
+                                 layout: 'horizontal',
+                                 align: 'center',
+                                 verticalAlign: 'bottom'
+                             }
+                         }
+                     }]
+                 },
+                 series: [{
+                     name: "周",
+                     colorByPoint: true,
+                     data: data
+                 }]
+             });
+         }, error: function () {
+             alert("查询失败")
+         }
+     })
+ }
+
+
+
+</SCRIPT>
+</html>

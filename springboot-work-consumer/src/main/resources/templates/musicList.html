@@ -1,0 +1,92 @@
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Insert title here</title>
+</head>
+<script type="text/javascript" src="../js/jquery-1.8.0.js"></script>
+
+<script type="text/javascript" src="../js/uploadify/jquery.uploadify.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../js/uploadify/uploadify.css" />
+
+
+
+<script type="text/javascript" src="../js/easyui1.5/jquery.easyui.min.js"> </script>
+<script type="text/javascript" src="../js/easyui1.5/locale/easyui-lang-zh_CN.js"> </script>
+
+<link rel="stylesheet" href="../js/easyui1.5/themes/default/easyui.css"></link>
+<link rel="stylesheet" href="../js/easyui1.5/themes/icon.css"></link>
+
+<link rel="stylesheet"
+      href="../js/kindeditor-4.1.10/themes/default/default.css"/>
+<script src="../js/kindeditor-4.1.10/kindeditor-all.js"></script>
+
+<script type="text/javascript" src="../js/EasyuiCRUD.js"></script>
+<body>
+
+
+<form id="addFrom" method="post">
+
+    名称: <input type="text" name="msg"  id="msg"/><br/>
+
+
+    <input type="button" value="搜索" onclick="find()">
+</form>
+<select name="op" id="op" onchange="vio(this.value)">
+    <option value="0" selected>请选择
+</select>	<br/>
+
+
+<div id="mvContent"></div>
+
+
+</body>
+<script type="text/javascript">
+
+
+
+
+
+
+
+
+    find=function(){
+        var msg=$("#msg").val();
+        $.ajax({
+            url:"../music/musiclist?msg="+msg,
+            type:"post",
+            data:$("#addFrom").serialize(),
+            success:function(data){
+
+                var info = "<option value='0'>请选择";
+                for(var i=0;i<data.length;i++){
+                    info += "<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+                }
+                $("#op").html(info);
+
+
+            }
+
+
+        })
+    }
+    vio=function(id){
+
+        $.ajax({
+            url:"../music/mvlist?id="+id,
+            success:function(data){
+                //$("#vi").attr('src',data);
+
+                var html=' <video src="'+data+'" controls="" autoplay="" style="max-width: 100%;"></video>';
+                $("#mvContent").html(html);
+            }
+
+
+        })
+    }
+
+
+
+</script>
+
+</html>

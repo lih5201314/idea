@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/dubbo-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spingboot-demo" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-anntion-consumer" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-anntion-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-consumer" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-highcharts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-poi" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-work-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-work-consumer" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-work-consumer/src/main/java/com/jk/log/SysLogAspect.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-work-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ssh-lih" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/thread" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

@@ -1,0 +1,155 @@
+
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Insert title here</title>
+
+    <script type="text/javascript" src="../js/jquery-1.8.0.js"></script>
+
+    <script type="text/javascript" src="../js/uploadify/jquery.uploadify.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../js/uploadify/uploadify.css" />
+
+
+
+    <script type="text/javascript" src="../js/easyui1.5/jquery.easyui.min.js"> </script>
+    <script type="text/javascript" src="../js/easyui1.5/locale/easyui-lang-zh_CN.js"> </script>
+
+    <link rel="stylesheet" href="../js/easyui1.5/themes/default/easyui.css"></link>
+    <link rel="stylesheet" href="../js/easyui1.5/themes/icon.css"></link>
+
+    <link rel="stylesheet"
+          href="../js/kindeditor-4.1.10/themes/default/default.css"/>
+    <script src="../js/kindeditor-4.1.10/kindeditor-all.js"></script>
+
+    <script type="text/javascript" src="../js/EasyuiCRUD.js"></script>
+</head>
+<body style="visibility:hidden;">
+
+
+
+<input type="button" value="导出Excel" onclick="exportExcel()">
+<form action="../poi/importExcel" method="post" enctype="multipart/form-data" >
+    <input type="file" name="file"/>
+    <input type="submit" value="导入excel"/>
+</form>
+<table id="data" title="信息" class="easyui-datagrid"></table>
+
+
+<div id="data2"  class="easyui-dialog" title="菜单" style="width:800px;height:400px;"
+     data-options="iconCls:'icon-save',resizable:true,modal:true">
+    <!-- 下拉树  -->
+    <ul id="et" class="easyui-tree">
+    </ul>
+    <input type="button" value="提交" onclick="updateUserPermiss()" >
+</div>
+
+</body>
+<script type="text/javascript">
+
+
+
+    $(function(){
+        $("#data2").dialog("close");
+        $("body").css({visibility:"visible"});
+        $("#data").datagrid({
+            url:"../userList/userList",
+            columns:[
+                [
+                {field:'cb',checkbox:true},
+                {field:'id',title:'编号',width:100},
+                {field:'username',title:'用户名',width:100},
+                {field:'password',title:'密码',width:100},
+                {field:'cz',title:'操作',width:100,
+                    formatter:function(value,row,index){
+                        return "<a href='javascript:editUserPermiss("+row.id+")'>绑定角色</a> "
+
+                    }},
+
+
+            ]
+            ],
+            pagination:true,
+            pageList:[2,5,10],
+            rownumbers:true,
+
+            fitColumns:true
+
+        })
+
+
+    })
+
+    /* editRolePermiss=function(id){
+        $("#data2").dialog("open");
+        $("#et").tree({
+        url:"./user/getPermissionByRId.do?id="+id,
+        checkbox:true,
+        cascadeCheck:false,
+
+        })
+    } */
+
+    var uid ;
+    editUserPermiss=function(id){
+
+        userid = id;
+        $("#data2").dialog("open");
+        $("#et").tree({
+            url:"../userList/getUserByRId?id="+id,
+            checkbox:true,
+            cascadeCheck:false,
+
+        })
+    } ;
+
+    function getChecked(){
+        var nodes = $('#et').tree('getChecked');
+        var s = '';
+        for(var i=0; i<nodes.length; i++){
+            if (s != '')s += ',';
+            s += nodes[i].id;
+
+        }
+        return s;
+    }
+
+
+
+    updateUserPermiss=function(){
+        var roleIds  = getChecked();
+
+        var uid=uid;
+
+        $.ajax({
+            url:"../userList/updateUserPermiss",
+            data:{roleIds:roleIds,uid:userid},
+            type:"post",
+            success:function(data){
+                //代表 成功
+                if(data=='1'){
+                    $("#data2").dialog("close");
+                }else{
+
+                    alert("失败");
+                }
+
+            }
+        })
+
+
+    }
+    function exportExcel(){
+
+
+
+
+            location.href="../poi/exportExcel";
+
+
+
+
+
+    }
+</script>
+</html>

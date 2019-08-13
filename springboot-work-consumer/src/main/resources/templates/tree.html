@@ -1,0 +1,75 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../js/easyui1.5/jquery.easyui.min.js"> </script>
+    <script type="text/javascript" src="../js/easyui1.5/locale/easyui-lang-zh_CN.js"> </script>
+
+    <link rel="stylesheet" href="../js/easyui1.5/themes/default/easyui.css"></link>
+    <link rel="stylesheet" href="../js/easyui1.5/themes/icon.css"></link>
+
+    <!-- ztree树 -->
+    <script src="../js/ztree/jquery.ztree.all-3.5.js"></script>
+    <link rel="stylesheet" href="../js/ztree/zTreeStyle.css" />
+    <script type="text/javascript" src="../js/EasyuiCRUD.js"></script>
+    <title>Insert title here</title>
+</head>
+<body class="easyui-layout">
+
+<div data-options="region:'north',title:'北部',split:true" style="height:100px;">
+    <h2><center>欢迎光临</center></h2>
+</div>
+<div data-options="region:'west',title:'West',split:true" style="width:170px;">
+    <ul id="myTree"></ul>
+</div>
+<div data-options="region:'center'" id style="padding:5px;background:#eee;">
+    <div id="myTabs" class="easyui-tabs" data-options="fit:true" style="width:500px;height:250px;">
+    </div>
+
+</div>
+</body>
+<script type="text/javascript">
+
+    $("#myTree").tree({
+        url:"../tree/treeList",
+        lines:true,
+        onClick:function(node){
+            //alert(node.url)
+            if((node.children=="" ||  node.children==null) &&  node.url!=null ){
+                if(!$("#myTabs").tabs("exists",node.text)){
+                    $("#myTabs").tabs('add',{
+                        title:node.text,
+                        content:createIframe(node.url),
+                        closable:true,
+                        tools:[{
+                            iconCls:'icon-reload',
+                            handler:function(){
+                                var tab=$("#myTabs").tabs('getSelected');
+                                $("#myTabs").tabs('update',{
+                                    tab:tab,
+                                    options:{
+                                        content:createIframe(node.url)
+                                    }
+
+
+                                })
+
+
+                            }
+
+
+                        }]
+                    })
+                }else{
+                    $("#myTabs").tabs('select',node.text)
+                }
+            }
+        }
+    })
+
+    function createIframe(url){
+
+        return '<iframe scrolling="auto" frameborder="0"  src="'+'..'+ url + '" style="width:100%;height:100%;"></iframe>';
+    }
+</script>
+</html>

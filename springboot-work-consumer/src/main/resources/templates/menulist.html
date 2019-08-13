@@ -1,0 +1,93 @@
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Insert title here</title>
+
+    <script type="text/javascript" src="../js/jquery-1.8.0.js"></script>
+
+    <script type="text/javascript" src="../js/uploadify/jquery.uploadify.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../js/uploadify/uploadify.css" />
+
+
+
+    <script type="text/javascript" src="../js/easyui1.5/jquery.easyui.min.js"> </script>
+    <script type="text/javascript" src="../js/easyui1.5/locale/easyui-lang-zh_CN.js"> </script>
+
+    <link rel="stylesheet" href="../js/easyui1.5/themes/default/easyui.css"></link>
+    <link rel="stylesheet" href="../js/easyui1.5/themes/icon.css"></link>
+
+    <link rel="stylesheet"
+          href="../js/kindeditor-4.1.10/themes/default/default.css"/>
+    <script src="../js/kindeditor-4.1.10/kindeditor-all.js"></script>
+
+    <script type="text/javascript" src="../js/EasyuiCRUD.js"></script>
+</head>
+<body style="visibility:hidden;">
+
+
+
+
+<table id="data" title="信息" class="easyui-datagrid"></table>
+
+
+<div id="data2"  class="easyui-dialog" title="菜单" style="width:800px;height:400px;"
+     data-options="iconCls:'icon-save',resizable:true,modal:true">
+    <!-- 下拉树  -->
+    <ul id="et" class="easyui-tree">
+    </ul>
+    <input type="button" value="提交" onclick="updateRolePermiss()" >
+</div>
+
+</body>
+<script type="text/javascript">
+
+
+
+    $(function(){
+        $("#data2").dialog("close");
+        $("body").css({visibility:"visible"});
+        $("#data").datagrid({
+            url:"../user/queryPermission",
+            columns:[
+                [
+                {field:'cb',checkbox:true},
+                {field:'id',title:'编号',width:100},
+                {field:'name',title:'菜单名称',width:100},
+                {field:'text',title:'菜单文本',width:100},
+                {field:'url',title:'跳转路径',width:100},
+                {field:'state',title:'状态',width:100},
+                {field:'description',title:'简介',width:100},
+                {field:'cz',title:'操作',width:100,
+                    formatter:function(value,row,index){
+                        return "<a href='javascript:editRolePermiss("+row.id+")'>绑定角色</a>"
+                    }},
+
+
+            ]
+            ],
+            pagination:true,
+            pageList:[2,5,10],
+            rownumbers:true,
+
+            fitColumns:true
+
+        })
+
+
+    })
+
+    /* editRolePermiss=function(id){
+        $("#data2").dialog("open");
+        $("#et").tree({
+        url:"./user/getPermissionByRId.do?id="+id,
+        checkbox:true,
+        cascadeCheck:false,
+
+        })
+    } */
+
+
+
+</script>
+</html>
